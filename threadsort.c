@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <pthread.h>
+#include <stdint.h>
 
 #define NUM_THREADS 9
 #define ARRAY_SIZE 10
 
-int array[10] = {6,3,2,1,23,4,7,7,4,1};
+int array[10] = {6,4,5,2,1,3,7,10,9,8};
 pthread_t threads[NUM_THREADS];
 pthread_t checker;
 pthread_mutex_t mutexes[ARRAY_SIZE];
@@ -39,7 +40,7 @@ void *check()
 void *sort(void *arg)
 {
 	int id;
-	id = (int)arg;
+	id = (int)(uintptr_t)arg;
 
 	while(1)
 	{
@@ -86,7 +87,7 @@ int main(int argc, char const *argv[])
 
 	for (int i = 0; i < NUM_THREADS; ++i)
 	{
-		if (pthread_create(&threads[i], NULL, &sort, (void *)i) != 0)
+		if (pthread_create(&threads[i], NULL, &sort, (void *)(intptr_t)i) != 0)
 		{
 			printf("thread %d failed to initialize\n", i);
 			return 1;
@@ -115,6 +116,3 @@ int main(int argc, char const *argv[])
     printf("\n");
 	
 }
-
-
-
