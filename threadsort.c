@@ -110,7 +110,8 @@ int main(int argc, char const *argv[])
 
 	printf("AFTER\n");
 
-	for(int i = 0; i < ARRAY_SIZE; i++) {
+	for(int i = 0; i < ARRAY_SIZE; i++)
+	{
         printf("%d ", array[i]);
     }
     printf("\n");
